@@ -1,0 +1,9 @@
+{
+  "name": "bluecadet-core",
+  "description": "Shared skills every Bluecadet discipline depends on",
+  "author": {
+    "name": "Bluecadet"
+  },
+  "skills": "./skills/",
+  "defaultEnabled": true
+}

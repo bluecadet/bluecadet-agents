@@ -1,0 +1,40 @@
+{
+  "name": "bluecadet-agents",
+  "owner": {
+    "name": "Bluecadet"
+  },
+  "description": "Discipline-specific Claude Code plugins for the Bluecadet team",
+  "metadata": {
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "bluecadet-core",
+      "source": "bluecadet-core",
+      "displayName": "Bluecadet Core",
+      "description": "Shared skills every Bluecadet discipline depends on",
+      "defaultEnabled": true
+    },
+    {
+      "name": "dev-team",
+      "source": "dev-team",
+      "displayName": "Dev Team",
+      "description": "Engineering workflows and skills for Bluecadet developers",
+      "defaultEnabled": true
+    },
+    {
+      "name": "drupal-dev",
+      "source": "drupal-dev",
+      "displayName": "Drupal Dev",
+      "description": "Drupal-specific skills for Bluecadet developers, depends on Dev Team",
+      "defaultEnabled": false
+    },
+    {
+      "name": "wordpress-dev",
+      "source": "wordpress-dev",
+      "displayName": "WordPress Dev",
+      "description": "WordPress-specific skills for Bluecadet developers, depends on Dev Team",
+      "defaultEnabled": false
+    }
+  ]
+}
