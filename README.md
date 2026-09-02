@@ -16,7 +16,7 @@ bluecadet-core          (defaultEnabled: true — everyone gets this)
 └── pm                  (depends on bluecadet-core, defaultEnabled: true)
 ```
 
-`bluecadet-core` holds skills that aren't discipline-specific — e.g. `team-meeting-debrief`. As PM/Design/Biz Dev plugins get built, they should depend on `bluecadet-core` directly too (not on `dev-team`).
+`bluecadet-core` holds skills that aren't discipline-specific — e.g. `team-meeting-debrief`, `bc-pdf-reading`. As PM/Design/Biz Dev plugins get built, they should depend on `bluecadet-core` directly too (not on `dev-team`).
 
 ## Rollout order
 
@@ -37,6 +37,11 @@ Open-submit, but Amit and Pete review and merge everything before it lands. A ba
 
 - [ ] Granola-to-Slack skill (referenced as "drafted ~2026-08-24" but no draft found — needs to actually be written)
 
+## Bluecadet Core plugin — status
+
+- [x] `team-meeting-debrief` — pulled in as-is from KrakenOS's `claude-skills/team-meeting-debrief/`, already written generically (2026-09-01)
+- [x] `bc-pdf-reading` — Pete's Claude-online-drafted PDF triage/extraction skill (2026-09-02), renamed from `pdf-reading` to avoid colliding with any first-party PDF skill an environment might already have installed (e.g. claude.ai's built-in `pdf` skill); intended as a fallback for environments that don't already have one. Original frontmatter had a non-standard `when_to_use` field, folded into `description` on import.
+
 ## PM plugin — status
 
-- [x] `quote-source-verification` — generalized from Kristina's Truman-specific Google Doc draft (2026-09-02). Truman's specific source set and coverage gaps live in `skills/quote-source-verification/references/known-figures.md` as the worked example; the skill itself is figure-agnostic. Notes a `pdf-reading`-type skill as an optional companion for text-layer PDFs and OCR guidance.
+- [x] `quote-source-verification` — generalized from Kristina's Truman-specific Google Doc draft (2026-09-02). Truman's specific source set and coverage gaps live in `skills/quote-source-verification/references/known-figures.md` as the worked example; the skill itself is figure-agnostic. Points to `bc-pdf-reading` (bluecadet-core) for text-layer PDFs and OCR guidance.

@@ -39,8 +39,8 @@ Any single fast-path source has real coverage limits. A figure's official-role a
 
 **Don't use this for:**
 
-- PDFs with a working text layer — just search the extracted text directly. (If a `pdf-reading`-type skill is available in your environment, defer to it for text-layer PDFs — this skill doesn't currently ship one.)
-- Documents with no index/TOC and no way to narrow by date — bulk OCR may be more efficient than manual paging. (Same optional PDF-reading-skill note applies for OCR guidance.)
+- PDFs with a working text layer — use the `bc-pdf-reading` skill (bluecadet-core) or your environment's own first-party PDF-reading skill if one's installed, for text-layer PDFs.
+- Documents with no index/TOC and no way to narrow by date — bulk OCR may be more efficient than manual paging; see `bc-pdf-reading`'s OCR guidance (or your environment's own PDF skill) for that.
 - Modern, small, or already-searchable documents.
 
 ## The scanned-PDF workflow (only after the Step 0 fast path misses)
