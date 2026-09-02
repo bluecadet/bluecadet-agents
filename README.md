@@ -53,3 +53,16 @@ No skills yet. `quote-source-verification` was originally built here 2026-09-02,
 ## Content Team plugin — status
 
 - [x] `quote-source-verification` — generalized from Kristina's Truman-specific Google Doc draft (2026-09-02), moved here from PM the same day. Truman's specific source set and coverage gaps live in `skills/quote-source-verification/references/known-figures.md` as the worked example; the skill itself is figure-agnostic. Points to `bc-pdf-reading` (bluecadet-core) for text-layer PDFs and OCR guidance.
+
+## Wishlist / backlog
+
+Not built yet, not assigned to a plugin. From Clay Tercek's reply in Slack DM, 2026-09-02, to Pete asking what should be included:
+
+- **Netlify Deploy MCP as a bundled `.mcp.json`** — fold the existing free-floating Netlify Deploy connector into a plugin instead, plus skills built around it (dev-team, probably)
+- **Client context skill** — pulled from Drive (plugin TBD)
+- **Brand voice / writing style skill** — content-team candidate; Clay flagged himself that the narrative team might not want this
+- **Glossary of house terms** — project phases, deliverable names, internal tool/workflow names (bluecadet-core candidate — matches a gap already identified independently in `context/todos-notes/k-297.md`'s review of Anthropic's `productivity` plugin, no glossary/decoder-ring exists anywhere in Bluecadet's Claude tooling today)
+- **Accessibility review against SOW commitments** — dev-team candidate
+- **PR review guidelines and commit conventions** — dev-team candidate
+
+Also open: Clay asked whether the intent is "a bucket of skills" or something that connects out to other services (Jira, Docs, etc.) — worth answering back to him directly, that's a real design-direction question, not a backlog item.
