@@ -1,6 +1,6 @@
 ---
 name: team-meeting-debrief
-description: Debrief a Granola or Zoom meeting for a Bluecadet project — pulls the transcript, summarizes it, saves the summary into the project's shared Drive folder, optionally logs a decision, and drafts a Slack post for the user to review before sending.
+description: Debrief a Granola or Zoom meeting for a Bluecadet project — pulls the transcript, summarizes it, saves the summary into the project's shared Drive folder, optionally logs a decision, keeps client-side attendees' People docs current, and drafts a Slack post for the user to review before sending.
 ---
 
 # Team Meeting Debrief
@@ -111,6 +111,19 @@ Post this to [#channel]?
 ```
 
 Determine the channel from the project's own README/metadata if available; otherwise ask.
+
+## Step 7: Check attendees against the People folder
+
+Client-side attendees only, Bluecadet's own team is already covered by local `people/` (see the `people-capture` rule) — don't create People docs for internal teammates here.
+
+- Look for an `80_agents/People/` folder inside the project's Drive folder (same folder found in Step 2). Create it if `80_agents` exists but `People` doesn't yet.
+- For each client-side attendee, check whether a doc already exists for them (search by name).
+  - **Doesn't exist:** offer to create one using the People — Template structure (`Identity`: Role, Company/Org, Relationship [client/vendor], Projects; `Contact`: Email, Phone, LinkedIn; `Notes`; `History`). Only fill in what's actually known from this meeting, leave the rest blank rather than guessing. Don't bulk-create docs for people who were only mentioned in passing, not actual attendees.
+  - **Exists, and this meeting surfaced new/changed info** (a title change, new contact info, a role clarification): offer to update it — append to `Notes` or `History`, don't silently overwrite what's already there. Creating a new doc here would just produce a duplicate; use the Docs API directly (`batch_update_doc`/`insert_doc_elements`) to append to the existing one instead.
+  - **Exists, nothing new:** leave it alone, don't touch a doc just because the person showed up again.
+- Front matter on a new doc: `Last updated: [YYYY-MM-DD] · Status: current`, matching the format already used in existing People docs (e.g. NWWII's).
+- Cite the source (e.g. "Source: [meeting title] debrief, [date]"), same pattern the existing People docs already use.
+- Always ask before creating or updating, same confirmation bar as the Slack draft in Step 6, this is shared team content, not a silent side effect of debriefing a meeting.
 
 ---
 
