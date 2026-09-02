@@ -1,0 +1,10 @@
+{
+  "name": "pm",
+  "description": "PM and research skills for Bluecadet project managers",
+  "author": {
+    "name": "Bluecadet"
+  },
+  "dependencies": ["bluecadet-core"],
+  "skills": "./skills/",
+  "defaultEnabled": true
+}

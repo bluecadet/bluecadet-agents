@@ -10,9 +10,10 @@ One plugin per discipline under `plugins/`, plus a shared `bluecadet-core` plugi
 
 ```
 bluecadet-core          (defaultEnabled: true — everyone gets this)
-└── dev-team            (depends on bluecadet-core, defaultEnabled: true)
-    ├── drupal-dev       (depends on dev-team, defaultEnabled: false)
-    └── wordpress-dev    (depends on dev-team, defaultEnabled: false)
+├── dev-team            (depends on bluecadet-core, defaultEnabled: true)
+│   ├── drupal-dev       (depends on dev-team, defaultEnabled: false)
+│   └── wordpress-dev    (depends on dev-team, defaultEnabled: false)
+└── pm                  (depends on bluecadet-core, defaultEnabled: true)
 ```
 
 `bluecadet-core` holds skills that aren't discipline-specific — e.g. `team-meeting-debrief`. As PM/Design/Biz Dev plugins get built, they should depend on `bluecadet-core` directly too (not on `dev-team`).
@@ -22,7 +23,7 @@ bluecadet-core          (defaultEnabled: true — everyone gets this)
 1. **Dev Team** — in progress, plus stack-specific sub-plugins that depend on it:
    - **Drupal Dev** — depends on `dev-team`
    - **WordPress Dev** — depends on `dev-team`
-2. PM
+2. **PM** — in progress, ahead of its rollout turn (2026-09-02: started with quote-source-verification before Dev Team's own skills were built out)
 3. Design
 4. Biz Dev
 
@@ -35,3 +36,7 @@ Open-submit, but Amit and Pete review and merge everything before it lands. A ba
 ## Dev Team plugin — status
 
 - [ ] Granola-to-Slack skill (referenced as "drafted ~2026-08-24" but no draft found — needs to actually be written)
+
+## PM plugin — status
+
+- [x] `quote-source-verification` — generalized from Kristina's Truman-specific Google Doc draft (2026-09-02). Truman's specific source set and coverage gaps live in `skills/quote-source-verification/references/known-figures.md` as the worked example; the skill itself is figure-agnostic. Notes a `pdf-reading`-type skill as an optional companion for text-layer PDFs and OCR guidance.

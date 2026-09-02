@@ -35,6 +35,13 @@
       "displayName": "WordPress Dev",
       "description": "WordPress-specific skills for Bluecadet developers, depends on Dev Team",
       "defaultEnabled": false
+    },
+    {
+      "name": "pm",
+      "source": "pm",
+      "displayName": "PM",
+      "description": "PM and research skills for Bluecadet project managers",
+      "defaultEnabled": true
     }
   ]
 }
