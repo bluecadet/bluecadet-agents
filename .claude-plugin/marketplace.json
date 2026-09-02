@@ -40,7 +40,14 @@
       "name": "pm",
       "source": "pm",
       "displayName": "PM",
-      "description": "PM and research skills for Bluecadet project managers",
+      "description": "Skills for Bluecadet project managers",
+      "defaultEnabled": true
+    },
+    {
+      "name": "content-team",
+      "source": "content-team",
+      "displayName": "Content Team",
+      "description": "Content and research skills for Bluecadet's content team",
       "defaultEnabled": true
     }
   ]
