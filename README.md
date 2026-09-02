@@ -41,6 +41,7 @@ Open-submit, but Amit and Pete review and merge everything before it lands. A ba
 
 - [x] `team-meeting-debrief` — pulled in as-is from KrakenOS's `claude-skills/team-meeting-debrief/`, already written generically (2026-09-01)
 - [x] `bc-pdf-reading` — Pete's Claude-online-drafted PDF triage/extraction skill (2026-09-02), renamed from `pdf-reading` to avoid colliding with any first-party PDF skill an environment might already have installed (e.g. claude.ai's built-in `pdf` skill); intended as a fallback for environments that don't already have one. Original frontmatter had a non-standard `when_to_use` field, folded into `description` on import.
+- [x] `orchestrator` — generalized from Pete's KrakenOS-local `.claude/skills/orchestrator/SKILL.md` (2026-09-02), itself adapted from Clay Tercek's original. Resolves an open question from Pete's personal todo tracking (graduate the local skill to his own global CLAUDE.md, or into this shared repo) in favor of the shared repo. KrakenOS-specific references (its own skill roster, its own todo/friction-log paths, "Pete" by name) replaced with project-agnostic equivalents. Invokes as `/bluecadet-core:orchestrator` — does not collide with any project-local `/orchestrator` skill, since plugin skills are always namespaced by plugin name.
 
 ## PM plugin — status
 
