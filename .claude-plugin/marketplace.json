@@ -49,6 +49,13 @@
       "displayName": "Content Team",
       "description": "Content and research skills for Bluecadet's content team",
       "defaultEnabled": true
+    },
+    {
+      "name": "design",
+      "source": "design",
+      "displayName": "Design",
+      "description": "Skills for Bluecadet's design team",
+      "defaultEnabled": true
     }
   ]
 }
