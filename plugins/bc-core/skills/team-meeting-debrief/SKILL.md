@@ -64,6 +64,8 @@ Decisions Made
 
 If a section has nothing to put in it, omit that section entirely.
 
+**Confirm Action Items and Decisions Made with the user before writing anything to Drive.** These two sections create durable claims — that someone owes a specific task, or that something was officially decided — in a way the Summary narrative doesn't. A misheard name or a misread nuance from the transcript becoming a silent written record is a real failure mode, not a hypothetical one. Show the drafted Action Items and Decisions Made sections and get an explicit confirm-or-correct from the user before proceeding to Step 4. The Summary narrative alone doesn't need this same gate.
+
 Multiple team members can each debrief the same meeting from their own perspective — this produces one doc per person per meeting, not one shared/merged doc. `Debriefed by` is what distinguishes them; don't try to merge or dedupe against another person's existing debrief of the same meeting.
 
 ## Step 4: Save to Drive
@@ -89,21 +91,27 @@ With either #1 or #2:
 
 ## Step 5: Log decisions (if any)
 
-If Step 3 surfaced a real decision, also add a one-line entry to `[project]/80_agents/Decisions Log` (create this doc if it doesn't exist yet, with a short header explaining its purpose):
+If Step 3 surfaced a real decision, also add a one-line entry to `[project]/80_agents/Decisions Log` (create this doc if it doesn't exist yet, with a short header explaining its purpose and a `Last updated: [YYYY-MM-DD]` front matter line).
 
 ```
 [YYYY-MM-DD] DECISION: [what was decided] | REASONING: [why] | CONTEXT: Source — [meeting title, link to the summary doc]
 ```
 
-**The log is newest-first, chronological order** — insert each new entry at the top (right after the doc's front matter/intro), never appended to the bottom. Bold the `[YYYY-MM-DD] DECISION:` prefix, and leave a blank line between entries.
+**The log is newest-first, chronological order** — insert each new entry at the top (right after the doc's front matter/intro), never appended to the bottom.
+
+**Bold ONLY the `[YYYY-MM-DD] DECISION:` prefix — not the REASONING or CONTEXT text, and not the whole entry.** When applying this via the Docs API, compute the exact character range covering just that prefix substring; don't bold the full inserted line just because it's the simpler range to compute. Leave a blank line between entries.
+
+**Update the doc's own `Last updated:` front matter line to today's date every time a new entry is added.** This is easy to forget since it's a small edit separate from the entry insertion itself — treat it as part of the same write, not an optional afterthought.
 
 Inserting at a specific position inside an existing doc requires real Docs API access — `mcp-drive` or `google-workspace-bc`'s `batch_update_doc` (same preference order as Step 4). **The plain native Drive connector cannot do this step at all** — it can create new files but can't edit an existing one's content. If neither `mcp-drive` nor `google-workspace-bc` is available, say so and skip this step rather than attempting a workaround (e.g. appending to the bottom, which breaks the newest-first convention).
 
-This step is a candidate for removal/adjustment during fine-tuning — it's here because scattered per-meeting files make "why was X decided" hard to answer later, but it's a judgment call whether every project wants a running decisions doc.
+This step is a candidate for removal/adjustment during fine-tuning — it's here because scattered per-meeting files make "why was X decided" hard to answer later, but it's a judgment call whether every project wants a running decisions doc. Open idea (not yet decided, 2026-09-17): decision logging might warrant becoming its own standalone skill rather than a step here, since it has its own real complexity (positional insertion, front-matter maintenance, formatting precision) distinct from the rest of a meeting debrief.
 
 ## Step 6: Draft a Slack message and ask before posting
 
 Never post to Slack without explicit confirmation. Draft the message, show it to the user, and ask "Post this to [channel]?"
+
+**"Show it to the user" means literally as plain text in this conversation — never via any Slack tool**, including a "send yourself a draft" or self-DM style preview. Calling any Slack tool before the user has explicitly confirmed defeats the confirmation gate, even when the target is the user's own DM rather than the real channel — it's still an unconfirmed Slack action, and it's easy for the user to miss it landing somewhere in Slack instead of in the conversation they're already reading.
 
 ```
 📝 Meeting debrief: [Meeting Title]
