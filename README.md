@@ -33,6 +33,8 @@ bc-core                 (defaultEnabled: true — everyone gets this)
 
 Each plugin gets built out when its rollout turn comes — not stubbed out empty ahead of time.
 
+**Exception, 2026-09-17:** `bc-dev`, `bc-dev-drup`, `bc-dev-wp`, and `bc-pm` each carry a `hello-world` placeholder skill even though none of them have a real skill yet. `claude plugin validate` fails the *entire* marketplace sync if any one plugin's `skills/` directory doesn't exist — an empty plugin isn't just inert, it's load-bearing broken. Remove each placeholder the same PR that adds that plugin's first real skill.
+
 ## Contribution model
 
 Open-submit, but Amit and Pete review and merge everything before it lands. A bad skill landing unreviewed could cause real problems if someone hits it unknowingly.
