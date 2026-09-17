@@ -41,6 +41,7 @@ Open-submit, but Amit and Pete review and merge everything before it lands. A ba
 
 ## Dev Team (`bc-dev`) plugin — status
 
+- [x] `git-workflow` (2026-09-16) — bc-dev's first skill. Guided git workflow for non-developers doing real work: groups changes into atomic commits, drafts messages against `bc-core:git-conventions`, and requires explicit approval before every git write operation (commit, branch, push, PR). Not a teaching tool — for a genuine git beginner who wants to learn from zero, it points to `plugin-advisor`'s `navigating-github` entry instead. Loosely modeled on KrakenOS's `commit-work` skill, adapted for a single-user real working tree and a stricter always-ask guardrail set.
 - [ ] Granola-to-Slack skill (referenced as "drafted ~2026-08-24" but no draft found — needs to actually be written)
 
 ## Bluecadet Core (`bc-core`) plugin — status
@@ -51,6 +52,7 @@ Open-submit, but Amit and Pete review and merge everything before it lands. A ba
 - [x] `plugin-advisor` (2026-09-02) — suggests a relevant external skill/plugin from a curated `references/registry.md` when a task has no matching bluecadet-agents skill; never installs anything itself. Distinct from the environment's own `find-skills` skill, which does a live but unvetted search across the whole open skills ecosystem. Seeded from reviewing github.com/JuliusBrussee/caveman (caveman-commit ported as a pattern candidate, the Cloud/proxy tier rejected — see the registry for reasoning). Devs own keeping the registry current via the normal PR review process.
 - [x] `house-glossary` (2026-09-02) — from Clay's wishlist item, above. Reference skill: consult `references/glossary.md` for Bluecadet-specific shorthand instead of guessing, add newly-confirmed terms as they come up. Seeded with only what could be confirmed from available project context; real recurring terms with no confirmed definition (e.g. "BLR") are listed under a "Needs definition" section rather than guessed at. Also flags an unconfirmed naming question worth Pete's attention: Clay referred to a "narrative team" that might not want a brand-voice skill, unclear if that's the same team as this repo's `bc-content` plugin under a different name.
 - [-] `team-session-notes` (added 2026-09-02, pulled 2026-09-17 for rework) — bridged a local Claude Code session to a project's `80_agents` Drive folder, the gap `team-meeting-debrief` doesn't cover since that one only runs from inside a claude.ai Project. Part of the larger `projects/team-knowledge-base` initiative in KrakenOS (architecture, front-matter conventions, and the confirmed-working Markdown→DOCX→Drive pipeline all decided there, not invented here). Pulled out of `bc-core` pending a rework; not currently available in this plugin. Re-add here once the reworked version lands.
+- [x] `git-conventions` (2026-09-16) — reference skill (no `user-invocable`, consulted automatically): Bluecadet's Conventional Commits format, scope-as-ticket-number convention, and branch naming pattern, in `references/conventional-commits.md`. Built alongside `bc-dev:git-workflow`, which drafts every commit against this. Reconciled from three real prior decisions found via Slack/Drive search (a `bc-base-drupal` README section, an Oct 2025 #dev-talk thread, a May 2026 #mars-landing--dev thread) rather than invented fresh — the README itself is still unreconciled and stale relative to this, flagged as a known follow-up, not fixed here.
 
 ## PM (`bc-pm`) plugin — status
 
@@ -68,6 +70,6 @@ Not built yet, not assigned to a plugin. From Clay Tercek's reply in Slack DM, 2
 - **Client context skill** — pulled from Drive (plugin TBD)
 - **Brand voice / writing style skill** — bc-content candidate; Clay flagged himself that the narrative team might not want this
 - **Accessibility review against SOW commitments** — bc-dev candidate
-- **PR review guidelines and commit conventions** — bc-dev candidate
+- ~~**PR review guidelines and commit conventions** — bc-dev candidate~~ — commit conventions + atomic-commit enforcement built 2026-09-16 (`bc-dev:git-workflow`, `bc-core:git-conventions`). PR *review* guidelines (how to review someone else's PR, distinct from how to write your own commits) is still open — see the NGA "PRs & Code Review (Drupal)" canvas surfaced during that work for existing prior art to draw from.
 
 Also open: Clay asked whether the intent is "a bucket of skills" or something that connects out to other services (Jira, Docs, etc.) — worth answering back to him directly, that's a real design-direction question, not a backlog item.
