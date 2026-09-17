@@ -1,5 +1,6 @@
 {
   "name": "bc-dev",
+  "version": "0.0.1",
   "description": "Engineering workflows and skills for Bluecadet developers",
   "author": {
     "name": "Bluecadet"

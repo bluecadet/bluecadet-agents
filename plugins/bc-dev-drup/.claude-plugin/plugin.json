@@ -1,5 +1,6 @@
 {
   "name": "bc-dev-drup",
+  "version": "0.0.1",
   "description": "Drupal-specific skills for Bluecadet developers, layered on Dev Team",
   "author": {
     "name": "Bluecadet"

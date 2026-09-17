@@ -1,5 +1,6 @@
 {
   "name": "bc-pm",
+  "version": "0.0.1",
   "description": "Skills for Bluecadet project managers",
   "author": {
     "name": "Bluecadet"
