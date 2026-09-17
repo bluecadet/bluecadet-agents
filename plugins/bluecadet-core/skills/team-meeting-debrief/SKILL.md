@@ -73,7 +73,13 @@ If two meetings share the same date and title (e.g. two same-day syncs both titl
 
 At the very top of the doc, above the Meeting Title line, add a one-line banner: `AI Generated - DO NOT EDIT`, bold and italic, normal text size (not a heading — it's a flag, not a section, so it shouldn't take up much vertical space). Leave one blank line between the banner and the Meeting Title line so it doesn't visually run into the front matter.
 
-**Apply real formatting, don't leave it as flat text** (when created via the Docs API — `create_doc` + `batch_update_doc`/`update_paragraph_style`, which this skill has direct access to when run outside a claude.ai Project; if only the plain Drive-connector upload path is available, fall back to the plain-labeled-paragraph text above, since that connector renders literal markdown characters as escaped text rather than real formatting):
+**Apply real formatting, don't leave it as flat text.** Preference order for which Docs-writing tool to use, since more than one may be available depending on the environment:
+
+1. **`mcp-drive`'s Docs tools** (`create_doc`, `batch_update_doc`, `update_paragraph_style`, `insert_doc_elements`) — use these first if the `mcp-drive` connector is enabled in this Project. It gives real Docs-API-level formatting from inside a claude.ai Project, closing the gap the plain native connector has always had here.
+2. **`google-workspace-bc`'s tools of the same names** — the path this skill has always had when run outside a claude.ai Project (i.e. in Claude Code).
+3. **The plain native Google Drive connector's upload path** — last resort, only when neither of the above is available. That connector renders literal markdown characters as escaped text rather than real formatting, so fall back to the plain-labeled-paragraph text structure from Step 3 instead of the formatted version below.
+
+With either #1 or #2:
 
 - Meeting Title line: heading style (e.g. `HEADING_1` or bold + larger size), not a plain paragraph.
 - Section labels (`Summary`, `Action Items`, `Decisions Made`) — bold, so they read as headers, not just another line of text.
@@ -89,6 +95,8 @@ If Step 3 surfaced a real decision, also add a one-line entry to `[project]/80_a
 ```
 
 **The log is newest-first, chronological order** — insert each new entry at the top (right after the doc's front matter/intro), never appended to the bottom. Bold the `[YYYY-MM-DD] DECISION:` prefix, and leave a blank line between entries.
+
+Inserting at a specific position inside an existing doc requires real Docs API access — `mcp-drive` or `google-workspace-bc`'s `batch_update_doc` (same preference order as Step 4). **The plain native Drive connector cannot do this step at all** — it can create new files but can't edit an existing one's content. If neither `mcp-drive` nor `google-workspace-bc` is available, say so and skip this step rather than attempting a workaround (e.g. appending to the bottom, which breaks the newest-first convention).
 
 This step is a candidate for removal/adjustment during fine-tuning — it's here because scattered per-meeting files make "why was X decided" hard to answer later, but it's a judgment call whether every project wants a running decisions doc.
 
@@ -119,7 +127,7 @@ Client-side attendees only, Bluecadet's own team is already covered by local `pe
 - Look for an `80_agents/People/` folder inside the project's Drive folder (same folder found in Step 2). Create it if `80_agents` exists but `People` doesn't yet.
 - For each client-side attendee, check whether a doc already exists for them (search by name).
   - **Doesn't exist:** offer to create one using the People — Template structure (`Identity`: Role, Company/Org, Relationship [client/vendor], Projects; `Contact`: Email, Phone, LinkedIn; `Notes`; `History`). Only fill in what's actually known from this meeting, leave the rest blank rather than guessing. Don't bulk-create docs for people who were only mentioned in passing, not actual attendees.
-  - **Exists, and this meeting surfaced new/changed info** (a title change, new contact info, a role clarification): offer to update it — append to `Notes` or `History`, don't silently overwrite what's already there. Creating a new doc here would just produce a duplicate; use the Docs API directly (`batch_update_doc`/`insert_doc_elements`) to append to the existing one instead.
+  - **Exists, and this meeting surfaced new/changed info** (a title change, new contact info, a role clarification): offer to update it — append to `Notes` or `History`, don't silently overwrite what's already there. Creating a new doc here would just produce a duplicate; use the Docs API directly (`mcp-drive`'s or `google-workspace-bc`'s `batch_update_doc`/`insert_doc_elements`, whichever is available — same preference order as Step 4) to append to the existing one instead.
   - **Exists, nothing new:** leave it alone, don't touch a doc just because the person showed up again.
 - Front matter on a new doc: `Last updated: [YYYY-MM-DD] · Status: current`, matching the format already used in existing People docs (e.g. NWWII's).
 - Cite the source (e.g. "Source: [meeting title] debrief, [date]"), same pattern the existing People docs already use.
