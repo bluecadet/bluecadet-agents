@@ -1,10 +1,10 @@
 {
-  "name": "drupal-dev",
+  "name": "bc-dev-drup",
   "description": "Drupal-specific skills for Bluecadet developers, layered on Dev Team",
   "author": {
     "name": "Bluecadet"
   },
-  "dependencies": ["dev-team"],
+  "dependencies": ["bc-dev"],
   "skills": "./skills/",
   "defaultEnabled": false
 }

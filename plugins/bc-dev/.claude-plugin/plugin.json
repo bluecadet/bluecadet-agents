@@ -1,10 +1,10 @@
 {
-  "name": "dev-team",
+  "name": "bc-dev",
   "description": "Engineering workflows and skills for Bluecadet developers",
   "author": {
     "name": "Bluecadet"
   },
-  "dependencies": ["bluecadet-core"],
+  "dependencies": ["bc-core"],
   "skills": "./skills/",
   "defaultEnabled": true
 }

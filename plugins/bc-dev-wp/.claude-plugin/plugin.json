@@ -1,10 +1,10 @@
 {
-  "name": "wordpress-dev",
+  "name": "bc-dev-wp",
   "description": "WordPress-specific skills for Bluecadet developers, layered on Dev Team",
   "author": {
     "name": "Bluecadet"
   },
-  "dependencies": ["dev-team"],
+  "dependencies": ["bc-dev"],
   "skills": "./skills/",
   "defaultEnabled": false
 }

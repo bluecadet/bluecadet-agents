@@ -1,10 +1,10 @@
 {
-  "name": "content-team",
+  "name": "bc-content",
   "description": "Content and research skills for Bluecadet's content team",
   "author": {
     "name": "Bluecadet"
   },
-  "dependencies": ["bluecadet-core"],
+  "dependencies": ["bc-core"],
   "skills": "./skills/",
   "defaultEnabled": true
 }

@@ -19,8 +19,8 @@ open skills ecosystem live but unvetted.
 
 ## Use_When
 
-- The current task has no matching bluecadet-agents skill (checked `dev-team`,
-  `bluecadet-core`, and any relevant discipline plugin already enabled), and
+- The current task has no matching bluecadet-agents skill (checked `bc-dev`,
+  `bc-core`, and any relevant discipline plugin already enabled), and
   feels like the kind of thing an external skill might already solve well.
 - The user asks directly whether a skill/plugin exists for something.
 
