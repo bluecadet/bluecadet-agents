@@ -1,5 +1,6 @@
 {
   "name": "bc-dev-wp",
+  "version": "0.0.1",
   "description": "WordPress-specific skills for Bluecadet developers, layered on Dev Team",
   "author": {
     "name": "Bluecadet"
