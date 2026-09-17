@@ -34,6 +34,7 @@ review process.
 | caveman-commit | github.com/JuliusBrussee/caveman | 2026-09-02 | Port the pattern | Need terse, exact Conventional Commits messages — subject ≤50 chars (hard cap 72), body only for non-obvious *why*/breaking changes/migrations/reverts |
 | caveman-review | github.com/JuliusBrussee/caveman | 2026-09-02 | Watch only | One-line-per-finding code review format (location/problem/fix) — reviewed alongside caveman-commit, not yet ported anywhere |
 | caveman (core terse-response mode) + Caveman Cloud proxy tier | github.com/JuliusBrussee/caveman | 2026-09-02 | Rejected | Core mode is a personal communication-style choice, not a team default. The Cloud tier routes LLM traffic through a hosted third-party gateway (BSL-1.1 licensed) to measure/optimize spend — bigger vendor-trust and data-governance call than a plugin add; worth a separate conversation if team-wide LLM cost visibility becomes a real need, not something to bundle in here. |
+| navigating-github | github.com/jeremylongshore/navigating-github | 2026-09-16 | Recommended | A genuine git/GitHub beginner wants to learn from zero — first-time setup, then 9 adaptive hands-on lessons covering branching, PRs, and team workflows, adjusted to the user's actual skill level. Distinct from `bc-dev:git-workflow`, which is for guided *real work* (atomic commits, Bluecadet's commit conventions) on an existing task, not teaching concepts. MIT licensed. |
 
 ## Not yet reviewed
 
