@@ -28,7 +28,7 @@ bc-core                 (defaultEnabled: true — everyone gets this)
    - **WordPress Dev** — depends on `bc-dev`
 2. **PM** — in progress, ahead of its rollout turn (2026-09-02: started, but its only skill was misplaced and later moved to Content Team, see below)
 3. **Content Team** — in progress, ahead of its rollout turn. Not one of the four disciplines from the original 2026-08-27 Amit/Pete 1:1 (Biz Dev, Dev Team, Design Team, PM) — added 2026-09-02 once `quote-verification` (originally `quote-source-verification`) turned out to belong here, not in PM. Where it slots into the rollout order long-term hasn't been decided.
-4. Design
+4. **Design** — in progress, ahead of its rollout turn (2026-09-16: started once `prototype-change-manifest` had a real skill to land, same pattern as Content Team)
 5. Biz Dev
 
 Each plugin gets built out when its rollout turn comes — not stubbed out empty ahead of time.
@@ -61,6 +61,10 @@ No skills yet. `quote-verification` (originally built and named `quote-source-ve
 ## Content Team (`bc-content`) plugin — status
 
 - [x] `quote-verification` (originally `quote-source-verification`, shortened 2026-09-17) — generalized from Kristina's Truman-specific Google Doc draft (2026-09-02), moved here from PM the same day. Truman's specific source set and coverage gaps live in `skills/quote-verification/references/known-figures.md` as the worked example; the skill itself is figure-agnostic. Points to `bc-pdf-reading` (bc-core) for text-layer PDFs and OCR guidance.
+
+## Design (`bc-design`) plugin — status
+
+- [x] `prototype-change-manifest` (2026-09-16) — bc-design's first skill, brought in as-is from Clay Tercek's Slack proposal (#dev-talk, 2026-09-14: [thread](https://bluecadet.slack.com/archives/C03N0USCX/p1789394879056959)) for formalizing the designer+agent code handoff. Writes a `CHANGES.md` change manifest (template at `assets/CHANGES.template.md`) alongside a designer's AI-built prototype, spec'd entirely in design language so a developer can implement it without reverse-engineering the prototype's markup. Per that thread, this and the prototype itself are meant as *supplemental* handoff material, not a replacement for Figma-as-source-of-truth or the ticket itself — Amy Frear's follow-up ask (link Figma references in the manifest) is already covered by the template's `Intent source` field and `Assets` section, no changes needed for that. Not yet run end-to-end against a real prototype.
 
 ## Wishlist / backlog
 

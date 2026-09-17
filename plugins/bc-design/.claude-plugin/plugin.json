@@ -1,0 +1,10 @@
+{
+  "name": "bc-design",
+  "description": "Skills for Bluecadet's design team",
+  "author": {
+    "name": "Bluecadet"
+  },
+  "dependencies": ["bc-core"],
+  "skills": "./skills/",
+  "defaultEnabled": true
+}
