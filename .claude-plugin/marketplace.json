@@ -10,42 +10,66 @@
   "plugins": [
     {
       "name": "bc-core",
-      "source": "bc-core",
+      "source": {
+        "source": "github",
+        "repo": "bluecadet/bluecadet-agents",
+        "path": "plugins/bc-core"
+      },
       "displayName": "Bluecadet Core",
       "description": "Shared skills every Bluecadet discipline depends on",
       "defaultEnabled": true
     },
     {
       "name": "bc-dev",
-      "source": "bc-dev",
+      "source": {
+        "source": "github",
+        "repo": "bluecadet/bluecadet-agents",
+        "path": "plugins/bc-dev"
+      },
       "displayName": "Dev Team",
       "description": "Engineering workflows and skills for Bluecadet developers",
       "defaultEnabled": true
     },
     {
       "name": "bc-dev-drup",
-      "source": "bc-dev-drup",
+      "source": {
+        "source": "github",
+        "repo": "bluecadet/bluecadet-agents",
+        "path": "plugins/bc-dev-drup"
+      },
       "displayName": "Drupal Dev",
       "description": "Drupal-specific skills for Bluecadet developers, depends on Dev Team",
       "defaultEnabled": false
     },
     {
       "name": "bc-dev-wp",
-      "source": "bc-dev-wp",
+      "source": {
+        "source": "github",
+        "repo": "bluecadet/bluecadet-agents",
+        "path": "plugins/bc-dev-wp"
+      },
       "displayName": "WordPress Dev",
       "description": "WordPress-specific skills for Bluecadet developers, depends on Dev Team",
       "defaultEnabled": false
     },
     {
       "name": "bc-pm",
-      "source": "bc-pm",
+      "source": {
+        "source": "github",
+        "repo": "bluecadet/bluecadet-agents",
+        "path": "plugins/bc-pm"
+      },
       "displayName": "PM",
       "description": "Skills for Bluecadet project managers",
       "defaultEnabled": true
     },
     {
       "name": "bc-content",
-      "source": "bc-content",
+      "source": {
+        "source": "github",
+        "repo": "bluecadet/bluecadet-agents",
+        "path": "plugins/bc-content"
+      },
       "displayName": "Content Team",
       "description": "Content and research skills for Bluecadet's content team",
       "defaultEnabled": true
