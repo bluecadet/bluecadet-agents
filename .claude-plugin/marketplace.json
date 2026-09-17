@@ -9,43 +9,43 @@
   },
   "plugins": [
     {
-      "name": "bluecadet-core",
-      "source": "bluecadet-core",
+      "name": "bc-core",
+      "source": "bc-core",
       "displayName": "Bluecadet Core",
       "description": "Shared skills every Bluecadet discipline depends on",
       "defaultEnabled": true
     },
     {
-      "name": "dev-team",
-      "source": "dev-team",
+      "name": "bc-dev",
+      "source": "bc-dev",
       "displayName": "Dev Team",
       "description": "Engineering workflows and skills for Bluecadet developers",
       "defaultEnabled": true
     },
     {
-      "name": "drupal-dev",
-      "source": "drupal-dev",
+      "name": "bc-dev-drup",
+      "source": "bc-dev-drup",
       "displayName": "Drupal Dev",
       "description": "Drupal-specific skills for Bluecadet developers, depends on Dev Team",
       "defaultEnabled": false
     },
     {
-      "name": "wordpress-dev",
-      "source": "wordpress-dev",
+      "name": "bc-dev-wp",
+      "source": "bc-dev-wp",
       "displayName": "WordPress Dev",
       "description": "WordPress-specific skills for Bluecadet developers, depends on Dev Team",
       "defaultEnabled": false
     },
     {
-      "name": "pm",
-      "source": "pm",
+      "name": "bc-pm",
+      "source": "bc-pm",
       "displayName": "PM",
       "description": "Skills for Bluecadet project managers",
       "defaultEnabled": true
     },
     {
-      "name": "content-team",
-      "source": "content-team",
+      "name": "bc-content",
+      "source": "bc-content",
       "displayName": "Content Team",
       "description": "Content and research skills for Bluecadet's content team",
       "defaultEnabled": true

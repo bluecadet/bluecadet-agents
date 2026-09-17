@@ -1,5 +1,5 @@
 ---
-name: quote-source-verification
+name: quote-verification
 description: Use this skill whenever the user wants to verify, source, or trace a specific quote from a historical or public figure who has a digitized and/or scanned archival record. Trigger this any time the user asks to "find this quote," "verify this quote's source," "check if [person] really said this," or provides a specific quote and asks where it appears, what document it's from, or what date it was said — whether or not a PDF has been uploaded. Also trigger when the user has a batch/list of quotes still needing primary-source verification. This skill starts with a fast online-search pass against the figure's known institutional archive(s) before falling back to manual page-by-page work in a scanned/image-only archival PDF — do not jump straight to the PDF method without trying the fast path first. See references/known-figures.md for previously-confirmed source sets (currently: Harry S. Truman).
 ---
 
@@ -39,7 +39,7 @@ Any single fast-path source has real coverage limits. A figure's official-role a
 
 **Don't use this for:**
 
-- PDFs with a working text layer — use the `bc-pdf-reading` skill (bluecadet-core) or your environment's own first-party PDF-reading skill if one's installed, for text-layer PDFs.
+- PDFs with a working text layer — use the `bc-pdf-reading` skill (bc-core) or your environment's own first-party PDF-reading skill if one's installed, for text-layer PDFs.
 - Documents with no index/TOC and no way to narrow by date — bulk OCR may be more efficient than manual paging; see `bc-pdf-reading`'s OCR guidance (or your environment's own PDF skill) for that.
 - Modern, small, or already-searchable documents.
 

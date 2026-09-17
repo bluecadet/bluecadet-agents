@@ -27,4 +27,4 @@ Terms confirmed from available project context. Add to this file whenever a new 
 Real, recurring terms seen in project context with no confirmed expansion found. Don't guess, if you're the one who knows, fill these in and remove from this section.
 
 - **BLR** — appears repeatedly across at least two unrelated projects (e.g. "Mars Landing BLR," "Truman BLR") as some kind of internal recurring meeting or checkpoint type. Expansion unconfirmed.
-- **"Narrative team" vs. "Content Team"** — Clay Tercek referred to a "narrative team" when flagging that a brand-voice skill might not be welcome there (Slack DM, 2026-09-02). This repo has a `content-team` plugin. Unconfirmed whether these refer to the same actual team under different names, or two different things.
+- **"Narrative team" vs. "Content Team"** — Clay Tercek referred to a "narrative team" when flagging that a brand-voice skill might not be welcome there (Slack DM, 2026-09-02). This repo has a `bc-content` plugin. Unconfirmed whether these refer to the same actual team under different names, or two different things.
