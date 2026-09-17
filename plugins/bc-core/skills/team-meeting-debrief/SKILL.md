@@ -15,8 +15,9 @@ This skill runs inside a claude.ai Project, using the Granola connector, the Zoo
 
 Granola and Zoom cover different, overlapping ground — some meetings only exist in one. Check both rather than assuming Granola is the only source.
 
-- If the user named a specific meeting, search Granola for it by name/date first — it's the primary source (Granola notes are pre-summarized and cheaper to process). If nothing turns up there, search Zoom (`mcp__claude_ai_Zoom_for_Claude__search` or `search_meetings`) by the same name/date before concluding the meeting can't be found.
-- If not, ask which meeting, or offer a short list of recent unprocessed meetings to choose from — pulled from whichever source(s) are relevant.
+- If the user explicitly asks for Zoom (names Zoom directly, asks for "the Zoom recording," "the Zoom transcript," etc.), search Zoom directly for that meeting — don't detour through Granola first just because it's the usual default. The Granola-first order below is a default search strategy, not a rule that overrides what the user actually asked for.
+- Otherwise, if the user named a specific meeting, search Granola for it by name/date first — it's the primary source (Granola notes are pre-summarized and cheaper to process). If nothing turns up there, search Zoom (`mcp__claude_ai_Zoom_for_Claude__search` or `search_meetings`) by the same name/date before concluding the meeting can't be found.
+- If no meeting was named at all, ask which meeting, or offer a short list of recent unprocessed meetings to choose from — pulled from whichever source(s) are relevant.
 - When doing a backfill/gap sweep across a date range (not a single named meeting): search Zoom by keyword/date range for meetings that never made it into Granola at all — this is how gaps get found, not by assuming Granola is complete.
 
 **Pulling the content, per source:**
