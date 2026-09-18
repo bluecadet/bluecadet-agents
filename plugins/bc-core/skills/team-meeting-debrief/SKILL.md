@@ -36,6 +36,9 @@ Granola and Zoom cover different, overlapping ground — some meetings only exis
 - If the project isn't obvious from the meeting title, ask which project this belongs to.
 - **Check `claude_index` first, if it's loaded as Project context and lists folder IDs next to folder names** — use the documented ID directly rather than searching Drive. Only fall back to a live search (by name) if `claude_index` doesn't have the ID, doesn't exist, or the documented ID turns out to be wrong (a write fails against it). This is the canonical reference, not a session-scoped cache — no need to re-verify it "just in case" on every run.
 - If no usable ID came from `claude_index`, search Google Drive for that project's folder by name.
+
+**If that live search resolves an ID `claude_index` didn't have, or corrects one that was wrong, offer to update `claude_index` with it** — show the user the specific line you'd add/correct (matching the `claude_index — Template`'s `name (id: ...)` format, in the `80_agents — Claude/Agent Working Files` section or wherever the folder in question belongs) and get a yes before writing. Same confirmation bar as the Slack draft in Step 6 — this is shared team content, not a silent side effect of debriefing a meeting. Skip the offer if the project has no `claude_index` yet; don't create one as part of this step.
+
 - Look for an `80_agents` subfolder inside it.
   - **If `80_agents` doesn't exist:** stop and tell the user this project hasn't been set up for this workflow yet (no defined place to save the summary). Don't invent a folder structure or guess where to put it.
   - **If it exists but there's no `Meeting Notes` subfolder inside it:** same — stop and say so, rather than creating one unasked.
