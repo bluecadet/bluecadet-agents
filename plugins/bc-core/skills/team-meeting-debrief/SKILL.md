@@ -143,17 +143,19 @@ Post this to [#channel]?
 
 **Always check `[project]/80_agents/README`'s Metadata section for a listed Slack channel before drafting the message — don't ask first.** Only ask the user directly if no channel is listed there. This is easy to skip on a quick pass since it previously read as a soft fallback; treat it as a required first step, not something to remember only if it happens to come to mind.
 
-## Step 7: Check attendees against the People folder
+## Step 7: Check attendees — and named externals — against the People folder
 
-Client-side attendees only, Bluecadet's own team is already covered by local `people/` (see the `people-capture` rule) — don't create People docs for internal teammates here.
+Client-side people only, Bluecadet's own team is already covered by local `people/` (see the `people-capture` rule) — don't create People docs for internal teammates here.
 
-**Client-side = any attendee whose email domain isn't `@bluecadet.com`.** That's the actual rule, stated explicitly rather than left as an inferred judgment call.
+**Client-side = anyone (attendee or not) whose email domain isn't `@bluecadet.com`, or who's clearly external from context when no email is available.** That's the actual rule, stated explicitly rather than left as an inferred judgment call.
 
-**Always say something for this step, even when it's a no-op.** If every attendee is internal, say so in one line (e.g. "No client-side attendees — skipping People folder check") rather than silently skipping the step without mentioning it. A silent skip looks identical to a forgotten step; an explicit one-line no-op is auditable.
+**This step covers two categories, not just attendees: actual meeting attendees, and any other external person named with identifying context during the meeting** — a role, an org, a reason they came up (e.g. "their new IT director starts next month, Jane Smith"). A bare name mentioned once with nothing else attached doesn't count — don't surface someone from a passing name-drop with no context to actually put in a People doc.
+
+**Always say something for this step, even when it's a no-op.** If every attendee is internal and nothing else external was substantively named, say so in one line (e.g. "No client-side attendees or named externals — skipping People folder check") rather than silently skipping the step without mentioning it. A silent skip looks identical to a forgotten step; an explicit one-line no-op is auditable.
 
 - Look for an `80_agents/People/` folder inside the project's Drive folder (same folder found in Step 2). Create it if `80_agents` exists but `People` doesn't yet.
-- For each client-side attendee, check whether a doc already exists for them (search by name).
-  - **Doesn't exist:** offer to create one using the People — Template structure (`Identity`: Role, Company/Org, Relationship [client/vendor], Projects; `Contact`: Email, Phone, LinkedIn; `Notes`; `History`). Only fill in what's actually known from this meeting, leave the rest blank rather than guessing. Don't bulk-create docs for people who were only mentioned in passing, not actual attendees.
+- For each client-side attendee, and each named-with-context external mention, check whether a doc already exists for them (search by name).
+  - **Doesn't exist:** offer to create one using the People — Template structure (`Identity`: Role, Company/Org, Relationship [client/vendor], Projects; `Contact`: Email, Phone, LinkedIn; `Notes`; `History`). Only fill in what's actually known from this meeting, leave the rest blank rather than guessing. Don't offer to create a doc for a bare-name mention with no context — that's the passing-mention case this step intentionally skips.
   - **Exists, and this meeting surfaced new/changed info** (a title change, new contact info, a role clarification): offer to update it — append to `Notes` or `History`, don't silently overwrite what's already there. Creating a new doc here would just produce a duplicate; use the Docs API directly (`mcp-drive`'s or `google-workspace-bc`'s `batch_update_doc`/`insert_doc_elements`, whichever is available — same preference order as Step 4) to append to the existing one instead.
   - **Exists, nothing new:** leave it alone, don't touch a doc just because the person showed up again.
 - Front matter on a new doc: `Last updated: [YYYY-MM-DD] · Status: current`, matching the format already used in existing People docs (e.g. NWWII's).
