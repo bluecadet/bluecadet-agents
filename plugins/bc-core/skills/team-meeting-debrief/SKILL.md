@@ -162,6 +162,30 @@ Client-side people only, Bluecadet's own team is already covered by local `peopl
 - Cite the source (e.g. "Source: [meeting title] debrief, [date]"), same pattern the existing People docs already use.
 - Always ask before creating or updating, same confirmation bar as the Slack draft in Step 6, this is shared team content, not a silent side effect of debriefing a meeting.
 
+## Step 8: Log friction (if any)
+
+Track real friction as it happens through Steps 1-7 — not every imperfection, only things with a plausible fix (same principle as the team's own internal friction log: "this wouldn't have happened if the system were better set up"). At the end of the run, if anything qualifies, write it to `[project]/80_agents/Friction Log` (create this doc if it doesn't exist yet, using the Friction Log — Template structure from the Global_Agents Drive folder, front matter `Last updated: [YYYY-MM-DD] · Status: current`).
+
+**Categories:**
+- `wrong-guess` — a tool/format/behavior assumption that turned out wrong
+- `missing-context` — had to ask the user for something the docs should already have had
+- `retry` — a tool call failed and needed a workaround
+- `ambiguous-instruction` — this skill's own instructions were unclear about what to do
+
+**Entry format**, appended to the bottom of the doc (chronological, oldest to newest — not the Decisions Log's newest-first convention):
+
+```
+[YYYY-MM-DD] [category] Description | potential fix
+```
+
+If the friction is really about this skill's own instructions rather than something specific to this project, add a `scope: skill` tag so it's identifiable later even though it's filed under one project's log:
+
+```
+[YYYY-MM-DD] [category] [scope: skill] Description | potential fix
+```
+
+**No confirmation gate for this write** — unlike every other write in this skill, friction entries are Claude's own process observations, not claims about what someone said or decided, so they don't need the same show-and-confirm bar. Just tell the user at the end of the run how many were logged (e.g. "Logged 2 friction items") — same one-line acknowledgment pattern as Step 7's no-op case, never silent. If nothing qualified this run, say so in one line rather than skipping the mention entirely (e.g. "No friction to log this run").
+
 ---
 
 ## Notes
