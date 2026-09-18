@@ -43,6 +43,8 @@ Granola and Zoom cover different, overlapping ground — some meetings only exis
   - **If `80_agents` doesn't exist:** stop and tell the user this project hasn't been set up for this workflow yet (no defined place to save the summary). Don't invent a folder structure or guess where to put it.
   - **If it exists but there's no `Meeting Notes` subfolder inside it:** same — stop and say so, rather than creating one unasked.
 
+**Check for project-level rules.** If `claude_index` lists a `Rules/` folder, read each listed rule doc (using the IDs `claude_index` already gives you, no live search needed) and follow whatever applies to this run — e.g. a `Friction Logging` rule governs Step 8 below. Skip silently if `claude_index` doesn't list a `Rules/` folder; don't create one as part of this step. A rule doc's own instructions take precedence over this skill's defaults if the two ever conflict on something the rule doc addresses directly.
+
 ## Step 3: Generate the summary
 
 **Scope the summary to the identified project only.** A single meeting often covers other projects, general team business, or tangential conversation that has nothing to do with the project this debrief is for (identified in Step 2). Only summarize, and only pull Action Items and Decisions from, the portion of the meeting actually about that project — leave it out of the written doc entirely, don't summarize it briefly "for context." This debrief is a project-specific record, not a transcript of the whole meeting.
@@ -164,27 +166,7 @@ Client-side people only, Bluecadet's own team is already covered by local `peopl
 
 ## Step 8: Log friction (if any)
 
-Track real friction as it happens through Steps 1-7 — not every imperfection, only things with a plausible fix (same principle as the team's own internal friction log: "this wouldn't have happened if the system were better set up"). At the end of the run, if anything qualifies, write it to `[project]/80_agents/Friction Log` (create this doc if it doesn't exist yet, using the Friction Log — Template structure from the Global_Agents Drive folder, front matter `Last updated: [YYYY-MM-DD] · Status: current`).
-
-**Categories:**
-- `wrong-guess` — a tool/format/behavior assumption that turned out wrong
-- `missing-context` — had to ask the user for something the docs should already have had
-- `retry` — a tool call failed and needed a workaround
-- `ambiguous-instruction` — this skill's own instructions were unclear about what to do
-
-**Entry format**, appended to the bottom of the doc (chronological, oldest to newest — not the Decisions Log's newest-first convention):
-
-```
-[YYYY-MM-DD] [category] Description | potential fix
-```
-
-If the friction is really about this skill's own instructions rather than something specific to this project, add a `scope: skill` tag so it's identifiable later even though it's filed under one project's log:
-
-```
-[YYYY-MM-DD] [category] [scope: skill] Description | potential fix
-```
-
-**No confirmation gate for this write** — unlike every other write in this skill, friction entries are Claude's own process observations, not claims about what someone said or decided, so they don't need the same show-and-confirm bar. Just tell the user at the end of the run how many were logged (e.g. "Logged 2 friction items") — same one-line acknowledgment pattern as Step 7's no-op case, never silent. If nothing qualified this run, say so in one line rather than skipping the mention entirely (e.g. "No friction to log this run").
+If Step 2 found a `Friction Logging` rule doc, apply it now: write anything that qualified during Steps 1-7 to `[project]/80_agents/Friction Log` (create it from the `Friction Log — Template` in `Global_Agents` if it doesn't exist yet), then tell the user how many were logged — never silently. If Step 2 found no `Rules/` folder or no `Friction Logging` rule, skip this step entirely rather than inventing the behavior from memory of what it used to say here.
 
 ---
 
