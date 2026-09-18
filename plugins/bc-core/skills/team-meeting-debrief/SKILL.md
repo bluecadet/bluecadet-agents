@@ -136,12 +136,17 @@ Never post to Slack without explicit confirmation. Draft the message, show it to
 
 Quick recap: [1-sentence summary]
 
-Potential todos:
-- [todo 1]
-- [todo 2]
+Action items:
+- [Name]: [action item]
+- [Name]: [action item]
+
+Decisions:
+- [decision]
 
 Post this to [#channel]?
 ```
+
+**Pull Action Items and Decisions straight from the confirmed Step 3 content — don't re-summarize or drop the assignee.** Each Action Item keeps its `[Name]:` prefix (same names confirmed with the user in Step 3), and the Decisions section lists any real decisions made, matching what's going into the Decisions Log. Omit the `Action items:` or `Decisions:` section entirely if there's nothing in it — same "omit empty sections" rule as Step 3 — rather than leaving an empty header.
 
 **Always check `[project]/80_agents/README`'s Metadata section for a listed Slack channel before drafting the message — don't ask first.** Only ask the user directly if no channel is listed there. This is easy to skip on a quick pass since it previously read as a soft fallback; treat it as a required first step, not something to remember only if it happens to come to mind.
 
