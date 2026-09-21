@@ -28,7 +28,7 @@ Ask for whatever isn't already given:
 
 Use `search_jira_users` with the lead's name or email to get their Jira account ID. Always resolve this explicitly — never assume the calling user is the lead just because they're the one running this.
 
-Decide initial admins (normally just the lead) and any initial members. Additional people can always be added later via Step 6 — default to a minimal initial set rather than adding everyone who might eventually need access.
+Decide initial admins (normally just the lead) and any initial members. Additional people can always be added later via Step 7 — default to a minimal initial set rather than adding everyone who might eventually need access.
 
 ## Step 3: Decide board type and scope
 
