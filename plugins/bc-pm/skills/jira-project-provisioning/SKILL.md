@@ -30,11 +30,19 @@ Use `search_jira_users` with the lead's name or email to get their Jira account 
 
 Decide initial admins (normally just the lead) and any initial members. Additional people can always be added later via Step 6 — default to a minimal initial set rather than adding everyone who might eventually need access.
 
-## Step 3: Decide board scope
+## Step 3: Decide board type and scope
+
+If a board is wanted at all, ask **Scrum or Kanban** first — this isn't a minor detail, it changes what's possible next:
+
+- **Kanban boards don't support sprints at all.** This is a Jira Agile API constraint, not a preference — `provision_jira_project` ignores `skipSprint` entirely and never creates a sprint when `boardType: "kanban"`. Don't offer sprint-related scope choices if the user picks Kanban.
+- **Scrum boards** support the full scope choice below.
+
+Then decide scope:
 
 - **Project only** (`skipBoard: true`) — nothing's ready yet, no board/filter/sprint
-- **Project + board, no sprint** (`skipSprint: true`) — the normal choice when the board should exist ahead of real issues but there's nothing to sprint-plan into yet
-- **Project + board + first sprint** (no flags) — only once there's real work to put into it immediately
+- **Project + board, no sprint** (`skipSprint: true`, scrum only) — the normal choice when the board should exist ahead of real issues but there's nothing to sprint-plan into yet
+- **Project + board + first sprint** (scrum only, no flags) — only once there's real work to put into it immediately
+- **Project + Kanban board** (`boardType: "kanban"`) — sprint scope choices don't apply here at all
 
 ## Step 4: Discover the base project (read-only)
 
@@ -52,14 +60,16 @@ Once confirmed, call `provision_jira_project` again with `dryRun: false`. Report
 
 Tell the user these still need to happen by hand in the Jira UI — `provision_jira_project`'s own response includes this same reminder, but restate it plainly:
 
-- Board column layout, card colors by priority, swimlanes by assignee, JQL quick filters — see the reference 7-column model below
+- Board column layout, card colors by priority, swimlanes by assignee, JQL quick filters — see the reference column models below, which one applies depends on the base project used in Step 1
 - Add the project to the "Default Description Fields 2.0" automation rule (Jira Automation admin UI)
 - Link the GitHub repo to the dev panel, once one exists for the actual build
 - Client user group creation/invites — deliberately manual, not an API limitation (paid seats)
 
 **Also flag this one explicitly:** Jira Cloud can auto-populate a project role (commonly "Client") with org-configured default members on every new project. If the user mentions anything looking wrong in a role they didn't touch, that's the likely cause — point them at Jira Settings → System → Project roles → [role] → Default Members, or have them remove the unwanted actor directly on the new project.
 
-**Reference board column model** (ACMW's real, tuned board — use as the starting template instead of Jira's default 3-column layout):
+**Reference column models — these are suggestions, not requirements, and how strongly to hold to them varies by base project:**
+
+**Web (`WEBBASE`)** — ACMW's real, tuned board, a strong suggestion (proven across a live production project, not a starting guess):
 
 | Column | Statuses |
 |--------|----------|
@@ -70,6 +80,18 @@ Tell the user these still need to happen by hand in the Jira UI — `provision_j
 | Review/UAT | Code/PR Review, Team Review, Design Review, INT QA, CLIENT UAT |
 | Waiting to Push | Merged, Deployable |
 | Done | Done |
+
+**Experiential (`EXPBASE`)** and **Strategy & Ops (`SAOBASE`)** — a simpler 5-column model:
+
+| Column |
+|--------|
+| To Do |
+| In Progress |
+| Review |
+| Blocked |
+| Done |
+
+Treat this one as slightly loose for Experiential projects and very loose for Strategy & Ops — offer it as the starting point, but don't push back if the project lead wants to deviate from it the way you might for the Web model.
 
 ## Step 7: Adding people or a sprint later
 
