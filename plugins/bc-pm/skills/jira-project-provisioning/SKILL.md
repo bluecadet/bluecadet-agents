@@ -106,12 +106,12 @@ Don't re-run the full provisioning flow for follow-up changes to an existing pro
 
 If a run fails or you're picking up a project someone else started, don't blindly re-run `provision_jira_project` — a retry will 400 on "project already exists" once the project itself was created. Instead:
 
-1. **Call `get_project_status`** with the project key — read-only, reports the project's current permission scheme and any boards it already has. This tells you exactly what's left to do instead of reasoning it out from the original failure message.
+1. **Call `get_project_status`** with the project key — read-only, reports the project's current permission scheme, any boards it already has, and each scrum board's existing sprints (name + state). This tells you exactly what's left to do instead of reasoning it out from the original failure message.
 2. **If the permission scheme is wrong:** call `discover_base_project` on the intended source (to get the correct scheme ID), then `update_project_permission_scheme` with the project key and that scheme ID. This touches only the permission scheme, nothing else already set up on the project.
-3. **If there's no board yet:** call `create_project_board` with the project key, a name, and the board type — this does filter-then-board together in one call, the same order `provision_jira_project` uses.
-4. **If there's no sprint yet and the board is scrum:** `create_project_sprint` as in Step 7.
+3. **If there's no board yet:** call `create_project_board` with the project key, a name, and the board type — this does filter-then-board together, the same order `provision_jira_project` uses. It's not fully atomic (a previous attempt could have created the filter but not the board), so it checks for an existing filter by its generated name first and reuses it rather than creating a duplicate — you don't need to do anything extra for that case.
+4. **If a scrum board has no sprint yet** (per `get_project_status`'s sprint list): `create_project_sprint` as in Step 7. Always check the sprint list first — creating one without checking can leave a project with a duplicate sprint if someone else's partial work already added one.
 
-Skip any step `get_project_status` shows as already done — don't recreate a board or reassign a scheme that's already correct.
+Skip any step `get_project_status` shows as already done — don't recreate a board, reassign a scheme, or add a sprint that's already correct.
 
 ---
 
@@ -119,5 +119,5 @@ Skip any step `get_project_status` shows as already done — don't recreate a bo
 
 - This skill only provisions the project itself. It does not scope, estimate, or plan the actual work that will live in the new project — that's a separate conversation.
 - If `provision_jira_project` fails on the real (non-dry-run) call, report the actual error message *and* whatever progress it lists back to the user rather than a generic "something went wrong" — Jira's own error text (e.g. a 403 on create, or a 400 on the filter step if it runs immediately after project creation and Jira's search index hasn't caught up yet) is usually specific enough to act on directly, and see Step 8 for how to finish a partial run rather than blindly retrying.
-- A 401 partway through the sequence (project/roles succeed, then board/filter fail) may be an OAuth scope gap on the `mcp-jira` connector's Atlassian app rather than anything wrong with the request — specifically whether "Jira Software" (the Agile REST API board/sprint live under) is registered as a separate product from "Jira API" in the Atlassian Developer Console. This isn't something to fix from inside a conversation — flag it and stop.
+- A 401 partway through the sequence (project/roles succeed, then board/filter fail) is not yet root-caused. "Jira Software" as a missing separate OAuth product was the first theory but is ruled out — it doesn't appear as an addable product in the Atlassian Developer Console at all, so the existing "Jira API" classic scopes likely already cover board/filter creation. This isn't something to fix from inside a conversation — if it recurs, report the tool's *exact* error text (not just "401"), since `jiraFetch` forwards whatever detail Jira's response body includes, and that's the fastest way to actually diagnose it rather than guessing again.
 - Full technical history and known gotchas for this provisioning logic live in Bluecadet's `mcp-workspace-tools` repo (`mcp-jira/`) and in KrakenOS's `references/sops/jira-project-creation.md` — don't re-derive that history here if something looks off, check there first.
