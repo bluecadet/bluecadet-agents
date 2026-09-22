@@ -100,10 +100,24 @@ Don't re-run the full provisioning flow for follow-up changes to an existing pro
 - **Add someone to a role:** resolve their account ID with `search_jira_users`, then `add_project_role_member` with the project key, role ID (from Step 4's discovery output), and account ID.
 - **Create a sprint once there's real work to plan:** `create_project_sprint` with the board ID and a sprint name.
 
+## Step 8: Recovering from a partially-failed run
+
+`provision_jira_project` can fail partway through — a real HGSE run (2026-09-22) got a project and its roles created successfully, then hit an error before the board/filter step, leaving the project real but incomplete. As of the 2026-09-22 fix, the tool's own error response now includes everything it actually completed before the failure (not just a bare error) — read that output carefully rather than assuming a failure means nothing happened.
+
+If a run fails or you're picking up a project someone else started, don't blindly re-run `provision_jira_project` — a retry will 400 on "project already exists" once the project itself was created. Instead:
+
+1. **Call `get_project_status`** with the project key — read-only, reports the project's current permission scheme and any boards it already has. This tells you exactly what's left to do instead of reasoning it out from the original failure message.
+2. **If the permission scheme is wrong:** call `discover_base_project` on the intended source (to get the correct scheme ID), then `update_project_permission_scheme` with the project key and that scheme ID. This touches only the permission scheme, nothing else already set up on the project.
+3. **If there's no board yet:** call `create_project_board` with the project key, a name, and the board type — this does filter-then-board together in one call, the same order `provision_jira_project` uses.
+4. **If there's no sprint yet and the board is scrum:** `create_project_sprint` as in Step 7.
+
+Skip any step `get_project_status` shows as already done — don't recreate a board or reassign a scheme that's already correct.
+
 ---
 
 ## Notes
 
 - This skill only provisions the project itself. It does not scope, estimate, or plan the actual work that will live in the new project — that's a separate conversation.
-- If `provision_jira_project` fails on the real (non-dry-run) call, report the actual error message back to the user rather than a generic "something went wrong" — Jira's own error text (e.g. a 403 on create, or a 400 on the filter step if it runs immediately after project creation and Jira's search index hasn't caught up yet) is usually specific enough to act on directly.
+- If `provision_jira_project` fails on the real (non-dry-run) call, report the actual error message *and* whatever progress it lists back to the user rather than a generic "something went wrong" — Jira's own error text (e.g. a 403 on create, or a 400 on the filter step if it runs immediately after project creation and Jira's search index hasn't caught up yet) is usually specific enough to act on directly, and see Step 8 for how to finish a partial run rather than blindly retrying.
+- A 401 partway through the sequence (project/roles succeed, then board/filter fail) may be an OAuth scope gap on the `mcp-jira` connector's Atlassian app rather than anything wrong with the request — specifically whether "Jira Software" (the Agile REST API board/sprint live under) is registered as a separate product from "Jira API" in the Atlassian Developer Console. This isn't something to fix from inside a conversation — flag it and stop.
 - Full technical history and known gotchas for this provisioning logic live in Bluecadet's `mcp-workspace-tools` repo (`mcp-jira/`) and in KrakenOS's `references/sops/jira-project-creation.md` — don't re-derive that history here if something looks off, check there first.
