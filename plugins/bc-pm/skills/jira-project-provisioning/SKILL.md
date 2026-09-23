@@ -30,9 +30,11 @@ Use `search_jira_users` with the lead's name or email to get their Jira account 
 
 Decide initial admins (normally just the lead) and any initial members. Additional people can always be added later via Step 7 — default to a minimal initial set rather than adding everyone who might eventually need access.
 
-## Step 3: Decide board type and scope
+## Step 3: Decide board type, name, and scope
 
-If a board is wanted at all, ask **Scrum or Kanban** first — this isn't a minor detail, it changes what's possible next:
+If a board is wanted at all, confirm its **name** explicitly rather than silently defaulting it to the project's name. This matters more than it looks: Jira Cloud's REST API has no endpoint to rename a board once created — confirmed 2026-09-23, it's a long-standing Atlassian feature request that's still unshipped. A wrong board name via this skill can only be fixed by a human renaming it directly in the Jira UI afterward, not by anything this skill or `mcp-jira` can do. Ask "what should the board be called?" and offer the project name as the default, rather than assuming it.
+
+Then ask **Scrum or Kanban** — this isn't a minor detail, it changes what's possible next:
 
 - **Kanban boards don't support sprints at all.** This is a Jira Agile API constraint, not a preference — `provision_jira_project` ignores `skipSprint` entirely and never creates a sprint when `boardType: "kanban"`. Don't offer sprint-related scope choices if the user picks Kanban.
 - **Scrum boards** support the full scope choice below.
