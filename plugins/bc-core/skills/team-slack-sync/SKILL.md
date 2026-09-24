@@ -1,13 +1,13 @@
 ---
 name: team-slack-sync
-description: Sync a Bluecadet project's Slack channel(s) for decisions and action items that never made it into a meeting debrief — pulls new messages since the last sync, confirms real decisions with the user, logs them via the Decision Logging rule, and surfaces action items directly in chat.
+description: Sync a Bluecadet project's Slack channel(s) for decisions and action items that never made it into a meeting debrief — pulls new messages since the last sync, confirms real decisions with the user, logs them via the Sourcing & Decision Standards rule, and surfaces action items directly in chat.
 ---
 
 # Team Slack Sync
 
 Triggered by: "sync [project]'s Slack", "check [project]'s Slack channel for decisions", "pull Slack activity for [project]"
 
-This skill runs inside a claude.ai Project, using the Slack connector and the Google Drive connector. It is `team-meeting-debrief`'s sister skill — same project/Drive conventions, same Decision Logging and Friction Logging rules, but the source is a project's Slack channel(s) instead of a meeting transcript. Real decisions get made async in Slack (budget tweaks, scope calls) that nobody was in a meeting to debrief — this skill is how those get captured instead of quietly living only in Slack's own history.
+This skill runs inside a claude.ai Project, using the Slack connector and the Google Drive connector. It is `team-meeting-debrief`'s sister skill — same project/Drive conventions, same Sourcing & Decision Standards and Friction Logging rules, but the source is a project's Slack channel(s) instead of a meeting transcript. Real decisions get made async in Slack (budget tweaks, scope calls) that nobody was in a meeting to debrief — this skill is how those get captured instead of quietly living only in Slack's own history.
 
 ---
 
@@ -22,7 +22,7 @@ This skill runs inside a claude.ai Project, using the Slack connector and the Go
 - **If more than one channel is listed, ask which to sync** — don't silently run through all of them. If only one is listed, use it without asking.
 - If README lists no Slack channel at all, stop and say so — same "this project hasn't been set up for this workflow yet" bar `team-meeting-debrief`'s Step 2 uses for a missing `80_agents` folder. Don't guess at a channel name.
 
-**Check for project-level rules**, same as `team-meeting-debrief`'s Step 2 — read `claude_index`'s `Rules/` listing (`Decision Logging`, `Friction Logging`, whatever else is there) and follow what applies to this run.
+**Check the canonical rules — always, not conditionally**, same as `team-meeting-debrief`'s Step 2. `Sourcing & Decision Standards` (governs Step 4) and `Friction Logging` (governs Step 6) live once in `Global_Agents/Rules/` and apply to every project; they're never copied into a project's own folder, so an empty or missing project `Rules/` folder doesn't mean skip them. Fetch them via `claude_index`'s standing `Global_Agents` link if not already loaded. Then check `claude_index`'s `Rules/` listing for a project-specific override doc (e.g. `Sourcing & Decision Standards — Project Additions`, most commonly this project's tag vocabulary) and follow it too, if one exists.
 
 ## Step 2: Resolve the sync window
 
@@ -55,9 +55,11 @@ For each candidate decision or action item found, note the specific message(s) i
 
 ## Step 4: Log confirmed decisions
 
-For each confirmed decision, apply the project's `Decision Logging` rule (found in Step 1) exactly as `team-meeting-debrief`'s Step 5 does — same entry format, same ID scheme, same confirmation-gate language, same insertion mechanics. `CONTEXT` cites the Slack message directly (permalink), not a summary doc.
+For each confirmed decision, apply the `Sourcing & Decision Standards` rule (found in Step 1) exactly as `team-meeting-debrief`'s Step 5 does — same entry format (stable ID, `OWNER` with its client-approved/internal-call/not-specified distinction, `STAKEHOLDERS` when named client people are involved, this project's tag if one applies), same confirmation-gate language, same insertion mechanics. `CONTEXT` cites the Slack message directly (permalink), not a summary doc.
 
-If Step 1 found no `Decision Logging` rule doc for this project, skip decision-logging entirely and say so, rather than inventing a format.
+**If this Slack thread revisits a decision already in the Decisions Log**, don't write a fresh unrelated entry — append the appropriate dated sub-line to the original per the rule (`SUPERSEDED BY`, `⚠️ NEEDS REVIEW`, or a dismissed-review line).
+
+If `Global_Agents` isn't reachable at all, skip decision-logging entirely and say so, rather than inventing a format.
 
 ## Step 5: Surface action items
 
@@ -65,7 +67,7 @@ List confirmed action items directly in this conversation — there's no persist
 
 ## Step 6: Log friction (if any)
 
-Same as `team-meeting-debrief`'s Step 8 — if Step 1 found a `Friction Logging` rule doc, apply it, then say how many were logged (or that none were). Skip silently if no rule doc was found.
+Same as `team-meeting-debrief`'s Step 8 — apply the `Friction Logging` rule (always applies, per Step 1), then say how many were logged (or that none were). Skip silently only if `Global_Agents` isn't reachable at all.
 
 ## Step 7: Check named externals against the People folder
 
