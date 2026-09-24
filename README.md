@@ -16,10 +16,12 @@ bc-core                 (defaultEnabled: true — everyone gets this)
 │   ├── bc-dev-drup      (depends on bc-dev, defaultEnabled: false)
 │   └── bc-dev-wp        (depends on bc-dev, defaultEnabled: false)
 ├── bc-pm               (depends on bc-core, defaultEnabled: true)
-└── bc-content          (depends on bc-core, defaultEnabled: true)
+├── bc-content          (depends on bc-core, defaultEnabled: true)
+├── bc-design           (depends on bc-core, defaultEnabled: true)
+└── bc-biz              (depends on bc-core, defaultEnabled: true)
 ```
 
-`bc-core` holds skills that aren't discipline-specific — e.g. `team-meeting-debrief`, `bc-pdf-reading`. As Design/Biz Dev plugins get built, they should depend on `bc-core` directly too (not on `bc-dev`).
+`bc-core` holds skills that aren't discipline-specific — e.g. `team-meeting-debrief`, `bc-pdf-reading`. `bc-design` and `bc-biz` depend on `bc-core` directly, same as `bc-pm`/`bc-content` (not on `bc-dev`).
 
 ## Rollout order
 
@@ -29,11 +31,11 @@ bc-core                 (defaultEnabled: true — everyone gets this)
 2. **PM** — in progress, ahead of its rollout turn (2026-09-02: started, but its only skill was misplaced and later moved to Content Team, see below)
 3. **Content Team** — in progress, ahead of its rollout turn. Not one of the four disciplines from the original 2026-08-27 Amit/Pete 1:1 (Biz Dev, Dev Team, Design Team, PM) — added 2026-09-02 once `quote-verification` (originally `quote-source-verification`) turned out to belong here, not in PM. Where it slots into the rollout order long-term hasn't been decided.
 4. **Design** — in progress, ahead of its rollout turn (2026-09-16: started once `prototype-change-manifest` had a real skill to land, same pattern as Content Team)
-5. Biz Dev
+5. Biz Dev — directory scaffolded 2026-09-24, no real skills yet
 
 Each plugin gets built out when its rollout turn comes — not stubbed out empty ahead of time.
 
-**Exception, 2026-09-17:** `bc-dev`, `bc-dev-drup`, `bc-dev-wp`, and `bc-pm` each carry a `hello-world` placeholder skill even though none of them have a real skill yet. `claude plugin validate` fails the *entire* marketplace sync if any one plugin's `skills/` directory doesn't exist — an empty plugin isn't just inert, it's load-bearing broken. Remove each placeholder the same PR that adds that plugin's first real skill.
+**Exception, 2026-09-17 (extended 2026-09-24):** `bc-dev`, `bc-dev-drup`, `bc-dev-wp`, `bc-pm`, and `bc-biz` each carry a `hello-world` placeholder skill even though none of them have a real skill yet. `claude plugin validate` fails the *entire* marketplace sync if any one plugin's `skills/` directory doesn't exist — an empty plugin isn't just inert, it's load-bearing broken. Remove each placeholder the same PR that adds that plugin's first real skill.
 
 ## Contribution model
 
@@ -65,6 +67,10 @@ No skills yet. `quote-verification` (originally built and named `quote-source-ve
 ## Design (`bc-design`) plugin — status
 
 - [x] `prototype-change-manifest` (2026-09-16) — bc-design's first skill, brought in as-is from Clay Tercek's Slack proposal (#dev-talk, 2026-09-14: [thread](https://bluecadet.slack.com/archives/C03N0USCX/p1789394879056959)) for formalizing the designer+agent code handoff. Writes a `CHANGES.md` change manifest (template at `assets/CHANGES.template.md`) alongside a designer's AI-built prototype, spec'd entirely in design language so a developer can implement it without reverse-engineering the prototype's markup. Per that thread, this and the prototype itself are meant as *supplemental* handoff material, not a replacement for Figma-as-source-of-truth or the ticket itself — Amy Frear's follow-up ask (link Figma references in the manifest) is already covered by the template's `Intent source` field and `Assets` section, no changes needed for that. Not yet run end-to-end against a real prototype.
+
+## Biz Dev (`bc-biz`) plugin — status
+
+No skills yet. Directory scaffolded 2026-09-24 with the `hello-world` placeholder.
 
 ## Wishlist / backlog
 

@@ -1,0 +1,11 @@
+{
+  "name": "bc-biz",
+  "version": "0.0.1",
+  "description": "Skills for Bluecadet's biz dev team",
+  "author": {
+    "name": "Bluecadet"
+  },
+  "dependencies": ["bc-core"],
+  "skills": "./skills/",
+  "defaultEnabled": true
+}
