@@ -80,6 +80,13 @@
       "displayName": "Design",
       "description": "Skills for Bluecadet's design team",
       "defaultEnabled": true
+    },
+    {
+      "name": "bc-biz",
+      "source": "bc-biz",
+      "displayName": "Biz Dev",
+      "description": "Skills for Bluecadet's biz dev team",
+      "defaultEnabled": true
     }
   ]
 }
