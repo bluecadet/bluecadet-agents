@@ -43,7 +43,9 @@ Granola and Zoom cover different, overlapping ground — some meetings only exis
   - **If `80_agents` doesn't exist:** stop and tell the user this project hasn't been set up for this workflow yet (no defined place to save the summary). Don't invent a folder structure or guess where to put it.
   - **If it exists but there's no `Meeting Notes` subfolder inside it:** same — stop and say so, rather than creating one unasked.
 
-**Check for project-level rules.** If `claude_index` lists a `Rules/` folder, read each listed rule doc (using the IDs `claude_index` already gives you, no live search needed) and follow whatever applies to this run — e.g. a `Friction Logging` rule governs Step 8 below. Skip silently if `claude_index` doesn't list a `Rules/` folder; don't create one as part of this step. A rule doc's own instructions take precedence over this skill's defaults if the two ever conflict on something the rule doc addresses directly.
+**Check the canonical rules — always, not conditionally.** `Sourcing & Decision Standards` (governs Step 5) and `Friction Logging` (governs Step 8) live once in `Global_Agents/Rules/` and apply to every project; they are never copied into a project's own folder, so don't skip them just because a project's `Rules/` folder is empty or missing. Fetch them via `claude_index`'s standing `Global_Agents` link if they aren't already loaded as Project context.
+
+**Then check for a project-specific override.** If `claude_index` lists a `Rules/` folder with docs in it (e.g. `Sourcing & Decision Standards — Project Additions`), read them too — they supplement or override the canonical rule for this project specifically (most commonly, this project's tag vocabulary). An empty or missing `Rules/` folder just means this project has no overrides; it does not mean the canonical rules don't apply. A rule doc's own instructions take precedence over this skill's defaults if the two ever conflict on something the rule doc addresses directly.
 
 ## Step 3: Generate the summary
 
@@ -107,9 +109,11 @@ With either #1 or #2, apply real Docs-API-level formatting via whatever tool the
 
 ## Step 5: Log decisions (if any)
 
-If Step 3 surfaced a real decision, check whether Step 2 found a `Decision Logging` rule doc (via `claude_index`'s Rules listing). If it did, apply it: confirm the drafted entry with the user per that rule's confirmation gate — stricter than Friction Logging's, since a decision entry is a claim about what was decided and who owns it — then insert it into `[project]/80_agents/Decisions Log` following the rule's format exactly.
+If Step 3 surfaced a real decision, apply the `Sourcing & Decision Standards` rule (`Global_Agents/Rules/` — this one always applies, unlike a project-specific override; see Step 2's Rules-check for whether this project also has a `Sourcing & Decision Standards — Project Additions` override doc, most commonly just a tag vocabulary). Confirm the drafted entry with the user first — stricter than Friction Logging's confirmation bar, since a decision entry is a claim about what was decided and who owns it — then insert it into `[project]/80_agents/Decisions Log` following the rule's entry format exactly: stable ID, `OWNER` (with its client-approved/internal-call/not-specified distinction), `STAKEHOLDERS` when named client people are involved, and the project's own tag if one applies.
 
-If Step 2 found no `Rules/` folder or no `Decision Logging` rule doc, skip this step entirely rather than inventing the behavior from memory of what it used to say here.
+**If this meeting revisits a decision already in the Decisions Log** (confirms it, reverses it, or raises a real challenge), don't write a fresh unrelated entry — append the appropriate dated sub-line to the original per the rule (`SUPERSEDED BY`, `⚠️ NEEDS REVIEW`, or a dismissed-review line), same append-only discipline as everything else in that log.
+
+If `Global_Agents` isn't reachable at all (not just missing a project override), skip this step and say so, rather than inventing the format from memory of what it used to say here.
 
 Inserting at a specific position inside an existing doc requires real Docs API access — `mcp-drive` or `google-workspace-bc`'s `batch_update_doc` (same preference order as Step 4). **The plain native Drive connector cannot do this step at all** — it can create new files but can't edit an existing one's content. If neither `mcp-drive` nor `google-workspace-bc` is available, say so and skip this step rather than attempting a workaround (e.g. appending to the bottom, which breaks the newest-first convention).
 
@@ -161,7 +165,7 @@ Client-side people only, Bluecadet's own team is already covered by local `peopl
 
 ## Step 8: Log friction (if any)
 
-If Step 2 found a `Friction Logging` rule doc, apply it now: write anything that qualified during Steps 1-7 to `[project]/80_agents/Friction Log` (create it from the `Friction Log — Template` in `Global_Agents` if it doesn't exist yet), then tell the user how many were logged — never silently. If Step 2 found no `Rules/` folder or no `Friction Logging` rule, skip this step entirely rather than inventing the behavior from memory of what it used to say here.
+Apply the `Friction Logging` rule (`Global_Agents/Rules/` — always applies, per Step 2): write anything that qualified during Steps 1-7 to `[project]/80_agents/Friction Log` (create it from the `Friction Log — Template` in `Global_Agents` if it doesn't exist yet), then tell the user how many were logged — never silently. If `Global_Agents` isn't reachable at all, skip this step and say so, rather than inventing the behavior from memory of what it used to say here.
 
 ---
 
