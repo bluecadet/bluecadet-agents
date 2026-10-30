@@ -11,7 +11,7 @@ This is about the **Google Drive project folder**, not Jira. For a Jira project 
 
 This skill needs the **mcp-drive** connector (Bluecadet's internal remote MCP server, `mcp-drive.netlify.app`), specifically its `copy_drive_folder` tool. It runs as the connected user's own Google identity. If the connector or that tool isn't available, say so and stop. Don't fall back to copying folders by hand with other Drive tools.
 
-All Drive IDs live in `scripts/drive_project.py`. Never type an ID from memory. Take the templates folder, the destination and the placeholder values only from that script's output.
+All Drive IDs live in `scripts/drive_project.py`. Run it by its full path, `<skill base directory>/scripts/drive_project.py`, where the skill base directory is the folder this SKILL.md was loaded from. Don't rely on the shell's current directory. Never type an ID from memory. Take the templates folder, the destination and the placeholder values only from that script's output.
 
 ---
 
@@ -29,7 +29,7 @@ New projects go in the live projects folder. Only use test mode if the user says
 Run:
 
 ```bash
-python3 scripts/drive_project.py templates
+python3 "<skill base directory>/scripts/drive_project.py" templates
 ```
 
 Make the `search_drive_files` call it prints. Show the user the template names and ask which one to use. Don't guess from the project name. Take the chosen folder's ID from the search result.
@@ -41,8 +41,10 @@ Tell the user what will happen in one or two lines: the template, the new folder
 Then run:
 
 ```bash
-python3 scripts/drive_project.py plan --name "<project name>" --template-id "<template folder id>" --mode live
+python3 "<skill base directory>/scripts/drive_project.py" plan --name '<project name>' --template-id '<template folder id>' --mode live
 ```
+
+Wrap the project name and the template ID in **single quotes**, never double quotes, so the shell can't expand anything inside them (`$(...)`, backticks, `$VAR`). If the name itself contains a single quote, write it as `'\''` inside the quotes.
 
 Use `--mode test` for a trial run. If the script prints an error (for example the name has a character Drive doesn't allow), show it and ask for a different name. Don't edit the name yourself.
 
